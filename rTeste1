@@ -1,0 +1,30 @@
+# O código a seguir para criar um dataframe e remover as linhas duplicadas sempre é executado e age como um preâmbulo para o script: 
+
+# dataset <- data.frame(Ano, Trimestre, Mês, Dia, valor)
+# dataset <- unique(dataset)
+
+# Cole ou digite aqui seu código de script:
+library(forecast)
+library(ggplot2)
+data = ts(dataset$valor,  start= c(min(dataset$Ano),1), end= c(max(dataset$Ano),12), frequency=12) #Função TS significa Serie Temporal - dataset são os dados PADRÕES DO PBI - menor mês para o maior mês, 12 meses
+modelo = auto.arima(data) #Dentro do pacote forecast - ARIMA é um metodo pratico e teorico de Serie Temporal
+previsão = forecast(modelo, h=12) #Chama o modelo do pacote - 12 intervalos para frente de previsão
+forecast::autoplot(previsão, main= "Previsão da Produção", ylab="Produção", xlab="Produção", lwd=3, lty=6) #Utilizar o autoplot especifco do forecast (existe varios autoplots em pacotes distintos)
+
+
+
+----------------------
+
+
+
+# O código a seguir para criar um dataframe e remover as linhas duplicadas sempre é executado e age como um preâmbulo para o script: 
+
+# dataset <- data.frame(Ano, Trimestre, Mês, Dia, valor)
+# dataset <- unique(dataset)
+
+# Cole ou digite aqui seu código de script:
+library(ggplot2)
+data = ts(dataset$valor,  start= c(min(dataset$Ano),1), end= c(max(dataset$Ano),12), frequency=12) #Função TS significa Serie Temporal - dataset são os dados PADRÕES DO PBI - menor mês para o maior mês, 12 meses
+dec = decompose(data)
+forecast::autoplot(dec, main="Deconposição de Graficos")
+#Notas - Primeiro grafico é a serie temporal - Segundo Grafico é o tendencia - Terceiro Grafico é a elemento sanzional - Quarto Grafico é o erro ou sobra
